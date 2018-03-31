@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.quantumT = new System.Windows.Forms.TextBox();
@@ -50,6 +53,10 @@
             this.arrivalT = new System.Windows.Forms.TextBox();
             this.processT = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,6 +68,9 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,22 +87,22 @@
             this.groupBox1.Size = new System.Drawing.Size(265, 163);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Scheduling Type";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.quantumT);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(130, 121);
+            this.panel2.Location = new System.Drawing.Point(117, 121);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(105, 36);
+            this.panel2.Size = new System.Drawing.Size(118, 36);
             this.panel2.TabIndex = 7;
             this.panel2.Visible = false;
             // 
             // quantumT
             // 
-            this.quantumT.Location = new System.Drawing.Point(29, 6);
+            this.quantumT.Location = new System.Drawing.Point(35, 6);
             this.quantumT.Name = "quantumT";
             this.quantumT.Size = new System.Drawing.Size(35, 20);
             this.quantumT.TabIndex = 1;
@@ -100,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 11);
+            this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(19, 13);
             this.label1.TabIndex = 0;
@@ -146,7 +156,6 @@
             this.rrB.Name = "rrB";
             this.rrB.Size = new System.Drawing.Size(39, 17);
             this.rrB.TabIndex = 3;
-            this.rrB.TabStop = true;
             this.rrB.Text = "RR";
             this.rrB.UseVisualStyleBackColor = true;
             this.rrB.CheckedChanged += new System.EventHandler(this.rrB_CheckedChanged);
@@ -158,7 +167,6 @@
             this.priorityB.Name = "priorityB";
             this.priorityB.Size = new System.Drawing.Size(59, 17);
             this.priorityB.TabIndex = 2;
-            this.priorityB.TabStop = true;
             this.priorityB.Text = "Priority";
             this.priorityB.UseVisualStyleBackColor = true;
             this.priorityB.CheckedChanged += new System.EventHandler(this.priorityB_CheckedChanged);
@@ -170,7 +178,6 @@
             this.sjfB.Name = "sjfB";
             this.sjfB.Size = new System.Drawing.Size(42, 17);
             this.sjfB.TabIndex = 1;
-            this.sjfB.TabStop = true;
             this.sjfB.Text = "SJF";
             this.sjfB.UseVisualStyleBackColor = true;
             this.sjfB.CheckedChanged += new System.EventHandler(this.sjfB_CheckedChanged);
@@ -178,10 +185,12 @@
             // fcfsB
             // 
             this.fcfsB.AutoSize = true;
+            this.fcfsB.Checked = true;
             this.fcfsB.Location = new System.Drawing.Point(6, 20);
             this.fcfsB.Name = "fcfsB";
             this.fcfsB.Size = new System.Drawing.Size(50, 17);
             this.fcfsB.TabIndex = 0;
+            this.fcfsB.TabStop = true;
             this.fcfsB.Text = "FCFS";
             this.fcfsB.UseVisualStyleBackColor = true;
             this.fcfsB.CheckedChanged += new System.EventHandler(this.fcfsB_CheckedChanged);
@@ -202,7 +211,7 @@
             this.groupBox2.Size = new System.Drawing.Size(288, 163);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "Add Process";
             // 
             // addB
             // 
@@ -273,6 +282,7 @@
             // 
             // processT
             // 
+            this.processT.Enabled = false;
             this.processT.Location = new System.Drawing.Point(81, 21);
             this.processT.Name = "processT";
             this.processT.Size = new System.Drawing.Size(100, 20);
@@ -280,12 +290,59 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.chart1);
             this.groupBox3.Location = new System.Drawing.Point(12, 232);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1008, 277);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Results";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Location = new System.Drawing.Point(857, 161);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(135, 100);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(10, 54);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(111, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(114, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Average waiting Time:";
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(6, 19);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.RangeBar;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(996, 252);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
             // 
             // dataGridView1
             // 
@@ -328,6 +385,7 @@
             this.startB.TabIndex = 4;
             this.startB.Text = "Start Scheduling";
             this.startB.UseVisualStyleBackColor = true;
+            this.startB.Click += new System.EventHandler(this.startB_Click);
             // 
             // restB
             // 
@@ -337,6 +395,7 @@
             this.restB.TabIndex = 5;
             this.restB.Text = "Reset";
             this.restB.UseVisualStyleBackColor = true;
+            this.restB.Click += new System.EventHandler(this.restB_Click);
             // 
             // Form1
             // 
@@ -359,6 +418,10 @@
             this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -395,6 +458,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

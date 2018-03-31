@@ -12,12 +12,15 @@ namespace Scheduler
 {
     public partial class Form1 : Form
     {
-        int count;
         public static List<Process> processes = new List<Process>();
-
+        int count = 0;
         public Form1()
         {
             InitializeComponent();
+            fcfsB.Checked = false;
+            count++;
+            string pro = "P" + count.ToString();
+            processT.AppendText(pro);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -55,6 +58,9 @@ namespace Scheduler
 
         private void addB_Click(object sender, EventArgs e)
         {
+            count++;
+            string pro = "P" + count.ToString();
+            processT.Text = pro;
             DataTable ss = new DataTable();
             ss.Columns.Add("Process");
             ss.Columns.Add("Arrival");
@@ -91,6 +97,61 @@ namespace Scheduler
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void restB_Click(object sender, EventArgs e)
+        {
+            processes.Clear();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+        }
+
+        private void startB_Click(object sender, EventArgs e)
+        {
+            if(!processes.Any())
+            {
+                MessageBox.Show("Please Enter Processes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (fcfsB.Checked) 
+            {//fcfs
+                
+            }
+            else if (sjfB.Checked)
+            {
+                if (preB.Checked)
+                {//sjfPree
+                    List<Process> sortedList = processes.OrderBy(a => a.getArrival()).ToList();
+
+                }
+                else if (nonpreB.Checked)
+                {//sjfnonpre
+
+                }
+            }
+            else if (priorityB.Checked)
+            {
+                if (preB.Checked)
+                {//priorityPree
+
+                }
+                else if (nonpreB.Checked)
+                {//prioritynonpre
+
+                }
+            }
+            else if (rrB.Checked)
+            {//rr
+                if (string.IsNullOrEmpty(quantumT.Text))
+                {
+                    MessageBox.Show("Please Enter quantum!", "No Quantum", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                int Q = Convert.ToInt32(quantumT.Text);
+            }
+            else
+            {//no chosen schedule is selected
+                MessageBox.Show("Please Enter Process Technique", "process not chosen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }
